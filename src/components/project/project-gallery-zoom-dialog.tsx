@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import {
   Dialog,
   DialogContent,
@@ -27,7 +26,7 @@ export function GalleryZoomDialog({
           <DialogTitle>Screenshot</DialogTitle>
           <DialogDescription>Zoomed screenshot</DialogDescription>
         </DialogHeader>
-        <motion.div>
+        <div>
           <Image
             src={selectedImage}
             alt="screenshot"
@@ -35,7 +34,7 @@ export function GalleryZoomDialog({
             height={1080}
             className="h-[85vh] w-full rounded-lg object-contain"
           />
-        </motion.div>
+        </div>
       </DialogContent>
     </Dialog>
   );

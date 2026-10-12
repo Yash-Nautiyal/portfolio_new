@@ -1,10 +1,11 @@
 import type { InputHTMLAttributes } from "react";
 
+// Material 3 filled text field: tinted fill, bottom indicator that turns accent on focus.
 export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
       {...props}
-      className={`w-full mt-1.5 rounded-xl border border-(--glass-border) bg-(--surface) px-4 py-3 text-sm text-foreground placeholder:text-(--text-secondary) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 ${props.className ?? ""}`}
+      className={`w-full mt-2 rounded-t-xl border-b-2 border-(--line) bg-(--surface) px-4 py-3.5 text-base text-(--ink) placeholder:text-(--ink-2) transition-colors focus-visible:border-(--accent) focus-visible:outline-none ${props.className ?? ""}`}
     />
   );
 }

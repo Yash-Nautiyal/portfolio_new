@@ -3,7 +3,7 @@ export const skillSectionMeta = {
   label: "Core skills",
   title: "What I build with",
   subtitle:
-    "A focused mobile toolkit — click any highlighted skill to see what's underneath.",
+    "My mobile toolkit. Pick one to see what I use it for.",
 } as const;
 
 export const experienceSectionMeta = {

@@ -9,7 +9,7 @@ export function SocialLinks() {
           href={value.link}
           target="_blank"
           rel="noreferrer"
-          className="text-sm text-(--text-secondary) transition hover:text-sky-600 dark:hover:text-sky-400"
+          className="text-sm text-(--ink-2) transition-colors hover:text-(--ink)"
         >
           {key === "gmail" ? "Email" : key.charAt(0).toUpperCase() + key.slice(1)}
         </a>

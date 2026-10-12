@@ -3,10 +3,7 @@ import {
   HighlightSkill,
   HighlightSubskill,
 } from "@/components/project/description-highlights";
-import { Button } from "@/components/ui/button";
 import { TypographyH3, TypographyP } from "@/components/ui/typography";
-import { ArrowUpRight, Play } from "lucide-react";
-import Link from "next/link";
 import { ReactNode } from "react";
 import { RiReactjsFill } from "react-icons/ri";
 import {
@@ -17,43 +14,7 @@ import {
   SiDart,
   SiMongodb,
 } from "react-icons/si";
-import Image from "next/image";
 const BASE_PATH = "/assets/projects";
-
-const ProjectsLinks = ({ live, repo }: { live?: string; repo?: string }) => {
-  return (
-    <div className="flex flex-col md:flex-row items-center justify-start gap-3 my-3 mb-8">
-      {live && (
-        <Link
-          className="font-mono underline flex gap-2"
-          rel="noopener"
-          target="_new"
-          href={live}
-        >
-          <Image
-            src={"https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png"}
-            alt="Get it on Google Play"
-            width={150}
-            height={150}
-          />
-        </Link>
-      )}
-      {repo && (
-        <Link
-          className="font-mono underline flex gap-2"
-          rel="noopener"
-          target="_new"
-          href={repo}
-        >
-          <Button variant={"default"} size={"sm"}>
-            Github
-            <ArrowUpRight className="ml-3 w-5 h-5" />
-          </Button>
-        </Link>
-      )}
-    </div>
-  );
-};
 
 export type Skill = {
   title: string;
@@ -116,6 +77,12 @@ export type Project = {
   title: string;
   src: string;
   screenshots: string[];
+  /** Plain-text intro, verbatim from the case study's first paragraph */
+  summary: string;
+  /** Portrait screens shown inside the homepage phone, in order */
+  shots: string[];
+  /** Dock icon colour on the homepage phone */
+  tint: string;
   skills: { frontend: Skill[]; backend: Skill[] };
   content: React.ReactNode;
   github?: string;
@@ -128,6 +95,12 @@ const projects: Project[] = [
     title: "EmployeeOS",
     src: "/assets/projects/employeeOS/landing.png",
     screenshots: ["landing.png"],
+    summary:
+      "EmployeeOS is a Flutter app that unifies internal operations into one mobile platform. It replaces scattered tools for communication, hiring, task tracking, and file management with a single, role-aware workspace.",
+    shots: ["welcome.jpg", "home.jpg", "kanban1.jpg", "hiring1.jpg", "filemanager1.jpg", "settings_dark.jpg"].map(
+      (f) => `${BASE_PATH}/employeeOS/${f}`,
+    ),
+    tint: "#1f6f5c",
     skills: {
       frontend: [PROJECT_SKILLS.flutter, PROJECT_SKILLS.dart],
       backend: [
@@ -146,8 +119,6 @@ const projects: Project[] = [
             operations into one mobile platform. It replaces scattered tools for communication,
             hiring, task tracking, and file management with a single, role-aware workspace.
           </TypographyP>
-    
-          <ProjectsLinks repo={this.github} />
     
           <TypographyH3 className="my-4 mt-8">Tech Stack & Architecture</TypographyH3>
           <p className="font-mono mb-2">
@@ -287,6 +258,10 @@ const projects: Project[] = [
     title: "2DOO",
     src: "/assets/projects/2doo/landing.png",
     screenshots: ["landing.png"],
+    summary:
+      "2DOO is a production-grade task management app built to help users plan smarter, stay focused, and never miss deadlines. It combines a clean, minimal interface with powerful productivity workflows such as overdue tracking, push notifications, and real-time synchronization.",
+    shots: [1, 2, 3, 4, 5].map((n) => encodeURI(`${BASE_PATH}/2doo/Samsung Galaxy S21 Ultra Screenshot ${n}.png`)),
+    tint: "#2a54c9",
     skills: {
       frontend: [PROJECT_SKILLS.flutter, PROJECT_SKILLS.dart],
       backend: [
@@ -306,8 +281,6 @@ const projects: Project[] = [
             interface with powerful productivity workflows such as overdue tracking, push
             notifications, and real-time synchronization.
           </TypographyP>
-
-          <ProjectsLinks repo={this.github} live={this.live}/>
 
           <TypographyH3 className="my-4">Key Features</TypographyH3>
           <ul className="font-mono mb-2 list-disc list-inside">
@@ -387,6 +360,12 @@ const projects: Project[] = [
     title: "NewsFeed",
     src: "/assets/projects/newsfeed/landing.png",
     screenshots: ["landing.png"],
+    summary:
+      "NewsFeed is a production-style Flutter and Dart application focused on real-time news consumption, category-based browsing, and fake-news verification.",
+    shots: ["home.jpg", "home_filter.jpg", "detail.jpg", "fake.jpg", "profile.jpg"].map(
+      (f) => `${BASE_PATH}/newsfeed/${f}`,
+    ),
+    tint: "#9a3b2c",
     live: "",
     github: "https://github.com/Yash-Nautiyal/NewsFeed.git",
     skills: {
@@ -401,8 +380,6 @@ const projects: Project[] = [
             <HighlightSkill>Dart</HighlightSkill> application focused on real-time news
             consumption, category-based browsing, and fake-news verification.
           </TypographyP>
-
-          <ProjectsLinks repo={this.github} />
 
           <div>
             <TypographyH3 className="mb-3">Core Features</TypographyH3>

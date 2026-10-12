@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useStage } from "@/components/coldstart/stage";
 import { FormError } from "./form-error";
 import { FormField } from "./form-field";
 import { SubmitButton } from "./submit-button";
@@ -14,6 +15,16 @@ export function ContactForm() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState("");
+  const { setDraft, setSent } = useStage();
+
+  // Mirror the draft into the homepage phone's compose screen (no-op on other pages).
+  const update = (field: "name" | "email" | "message", value: string) => {
+    const next = { name, email, message, [field]: value };
+    if (field === "name") setName(value);
+    if (field === "email") setEmail(value);
+    if (field === "message") setMessage(value);
+    setDraft(next);
+  };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -46,10 +57,13 @@ export function ContactForm() {
         return;
       }
 
-      setSuccess("Message sent successfully. I'll get back to you soon.");
+      setSuccess("Message sent. I'll reply to your email soon.");
+      setSent(true);
+      setTimeout(() => setSent(false), 4000);
       setName("");
       setEmail("");
       setMessage("");
+      setDraft({ name: "", email: "", message: "" });
     } catch {
       setError("Network error. Please try again.");
     } finally {
@@ -58,32 +72,42 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={onSubmit} className="space-y-5" noValidate>
       <FormField label="Name">
         <Input
+          name="name"
+          autoComplete="name"
+          required
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => update("name", e.target.value)}
           placeholder="Your name"
         />
       </FormField>
       <FormField label="Email">
         <Input
           type="email"
+          name="email"
+          autoComplete="email"
+          required
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => update("email", e.target.value)}
           placeholder="your@email.com"
         />
       </FormField>
       <FormField label="Message">
         <Textarea
           rows={5}
+          name="message"
+          required
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => update("message", e.target.value)}
           placeholder="Tell me about the role/project"
         />
       </FormField>
       <FormError message={error} />
-      {success ? <p className="text-sm text-emerald-500">{success}</p> : null}
+      <p className="text-sm text-(--accent)" role="status">
+        {success}
+      </p>
       <SubmitButton pending={pending} />
     </form>
   );

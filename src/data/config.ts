@@ -21,8 +21,19 @@ const config = {
     "State Management",
   ],
   author: "Yash Nautiyal",
+  // From the CV (Oct 2026). Phone number deliberately left out of the site.
+  about: {
+    overview:
+      "Dedicated Mobile Application Developer with strong Dart fundamentals. Specialized in Clean Architecture and BLoC for robust state management. Experienced in the full development lifecycle, including CI/CD integration, performance tuning for high-traffic apps, and seamless database synchronization.",
+    role: "Flutter Developer, Android Developer",
+    location: "Greater Noida, Uttar Pradesh",
+    education: "B.Tech in Computer Science, Bennett University (Sep 2022 – May 2026)",
+    languages: "Dart, Kotlin, Python, C++",
+    stateManagement: "BLoC, Cubit, Riverpod",
+  },
   email: "nautiyalyash4@gmail.com",
-  site: "",
+  // Set NEXT_PUBLIC_SITE_URL (e.g. on Vercel) to the real domain; used for metadata, OG image, sitemap and robots.
+  site: process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com",
   resume: "https://drive.google.com/file/d/17ZU4ynaAr4SyoAedPkeFUgsxuLoRF_dF/view?usp=sharing",
   get ogImg() {
     return this.site + "/assets/seo/og-image.svg";

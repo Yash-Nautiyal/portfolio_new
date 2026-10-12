@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Funnel_Display, Funnel_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { config } from "@/data/config";
-import { GlobalBlobs } from "@/components/layout/global-blobs";
+import { SmoothScroll } from "@/components/coldstart/smooth-scroll";
+import { SignalField } from "@/components/coldstart/signal-field";
+import { DevModeChip } from "@/components/coldstart/developer-mode";
 
-const jakartaSans = Plus_Jakarta_Sans({
+const display = Funnel_Display({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["400", "700", "800"],
+});
+
+const sans = Funnel_Sans({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
@@ -15,7 +23,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL(config.site),
   title: {
     default: config.title,
     template: `%s | ${config.author}`,
@@ -24,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: config.title,
     description: config.description.short,
-    url: "https://example.com",
+    url: config.site,
     siteName: config.author,
     images: [{ url: config.ogImg, width: 1200, height: 630 }],
     locale: "en_US",
@@ -47,16 +55,21 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${jakartaSans.variable} ${mono.variable} h-full antialiased`}
+      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-100">
+      <body className="min-h-full flex flex-col">
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{const t=localStorage.getItem('theme');const d=window.matchMedia('(prefers-color-scheme: dark)').matches;const dark=t==='dark'||(!t&&d);document.documentElement.classList.toggle('dark',dark);document.documentElement.setAttribute('data-theme',dark?'dark':'light')}catch(e){}",
+              "try{const t=localStorage.getItem('theme');const d=window.matchMedia('(prefers-color-scheme: dark)').matches;const dark=t==='dark'||(!t&&d);document.documentElement.classList.toggle('dark',dark);document.documentElement.setAttribute('data-theme',dark?'dark':'light');if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('film');if(sessionStorage.getItem('coldstart-dev')==='1')document.documentElement.classList.add('dev-bounds')}catch(e){}",
           }}
         />
-        <GlobalBlobs />
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
+        <SmoothScroll />
+        <SignalField />
+        <DevModeChip />
         {children}
       </body>
     </html>

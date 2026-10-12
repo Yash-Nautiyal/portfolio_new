@@ -3,7 +3,7 @@ import { Container } from "@/components/layout/container";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { PageHeader } from "@/components/layout/page-header";
-import { ProjectGrid } from "@/components/project/project-grid";
+import { ProjectIndex } from "@/components/project/project-index";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -14,13 +14,10 @@ export default function ProjectsPage() {
   return (
     <>
       <Navbar />
-      <main className="flex-1 py-14 sm:py-20">
+      <main id="main" className="flex-1 pb-24">
         <Container>
-          <PageHeader
-            title="All Projects"
-            description="A curated collection of mobile apps and product engineering work."
-          />
-          <ProjectGrid />
+          <PageHeader title="Projects" description="A curated collection of mobile apps and product engineering work." />
+          <ProjectIndex />
         </Container>
       </main>
       <Footer />

@@ -5,7 +5,7 @@ import { SkillsPills } from "./skills-pills";
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="scroll-mt-28 py-14 sm:py-20">
+    <section id="skills" className="scroll-mt-16 py-14 sm:py-20">
       <SectionHeader
         label={skillSectionMeta.label}
         title={skillSectionMeta.title}
